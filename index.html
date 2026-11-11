@@ -121,6 +121,17 @@ td{background:var(--card)}
 @media (max-width:480px){body{font-size:16.5px} header.top{flex-direction:column-reverse;align-items:stretch} .tbtn{align-self:flex-start}}
 @media (prefers-reduced-motion:no-preference){.qcard{transition:border-color .2s}}
 </style>
+<style>
+  /* הסתרת תגית ה-Watermark של נטליפיי באופן מוחלט */
+  iframe#netlify-badge, 
+  a[href*="netlify.com"], 
+  div:has(> a[href*="netlify.com"]),
+  .netlify-badge {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+  }
+</style>
 </head>
 <body>
 <div class="wrap">
