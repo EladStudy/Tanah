@@ -755,5 +755,24 @@ $('#aOut').onclick = () => { loggedIn = false; $('#aUser').value = ''; openAdmin
   applyExam();
 })();
 </script>
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    // חיפוש והסרה של כפתור ה-Netlify לפי כתובת או מזהה
+    const netlifyBadge = document.querySelector('iframe#netlify-badge, a[href*="netlify.com"], .netlify-badge');
+    if (netlifyBadge) {
+      netlifyBadge.remove();
+    }
+    
+    // ניטור למקרה שהכפתור נטען באיחור דינמי
+    const observer = new MutationObserver((mutations, obs) => {
+      const badge = document.querySelector('iframe#netlify-badge, a[href*="netlify.com"], div:has(> a[href*="netlify.com"]), .netlify-badge');
+      if (badge) {
+        badge.remove();
+        obs.disconnect(); // מפסיק לעקוב ברגע שהוסר
+      }
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+  });
+</script>
 </body>
 </html>
