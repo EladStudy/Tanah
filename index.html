@@ -757,19 +757,18 @@ $('#aOut').onclick = () => { loggedIn = false; $('#aUser').value = ''; openAdmin
 </script>
 <script>
   window.addEventListener('DOMContentLoaded', () => {
-    // חיפוש והסרה של כפתור ה-Netlify לפי כתובת או מזהה
-    const netlifyBadge = document.querySelector('iframe#netlify-badge, a[href*="netlify.com"], .netlify-badge');
-    if (netlifyBadge) {
-      netlifyBadge.remove();
-    }
-    
-    // ניטור למקרה שהכפתור נטען באיחור דינמי
-    const observer = new MutationObserver((mutations, obs) => {
-      const badge = document.querySelector('iframe#netlify-badge, a[href*="netlify.com"], div:has(> a[href*="netlify.com"]), .netlify-badge');
-      if (badge) {
-        badge.remove();
-        obs.disconnect(); // מפסיק לעקוב ברגע שהוסר
-      }
+    const removeBadge = () => {
+      // חיפוש כל אלמנט אפשרי שקשור לתגית של נטליפיי
+      const elements = document.querySelectorAll('iframe#netlify-badge, a[href*="netlify.com"], div:has(> a[href*="netlify.com"]), .netlify-badge, img[alt*="Netlify"]');
+      elements.forEach(el => el.remove());
+    };
+
+    // הרצה מיידית
+    removeBadge();
+
+    // מעקב רציף למקרה שזה נטען באיחור
+    const observer = new MutationObserver(() => {
+      removeBadge();
     });
     observer.observe(document.body, { childList: true, subtree: true });
   });
